@@ -30,3 +30,12 @@ ALTER TABLE users_roles
 
 ALTER TABLE users_roles
     ADD CONSTRAINT fk_userol_on_user FOREIGN KEY (users_id) REFERENCES users (id);
+
+
+CREATE TABLE dogs
+(
+    id   BIGINT AUTO_INCREMENT NOT NULL,
+    breed VARCHAR(255) NOT NULL,
+    img_url  VARCHAR(512)          NULL,
+    CONSTRAINT pk_dogs PRIMARY KEY (id)
+);

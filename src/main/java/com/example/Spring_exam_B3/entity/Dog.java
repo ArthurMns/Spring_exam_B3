@@ -15,12 +15,9 @@ public class Dog {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false)
     private String breed;
 
     @Column(nullable = true)
-    private String imgUrl;
+    private String img_url;
 
 }
