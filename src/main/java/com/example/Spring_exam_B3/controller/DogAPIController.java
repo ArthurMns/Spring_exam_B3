@@ -92,13 +92,14 @@ public class DogAPIController {
         return "Dog created successfully";
     }
 
-    @GetMapping("/getDogById")
-    public Dog getDogById(Long id) {
+    @GetMapping("/getDogById/{id}")
+    public Dog getDogById(@PathVariable Long id) {
         return dogService.getDogById(id);
     }
 
-    @PostMapping("/updateDog")
-    public String updateDog(@RequestBody DogDTO dogDTO) {
+    @PutMapping("/updateDog/{id}")
+    public String updateDog(@PathVariable Long id, @RequestBody DogDTO dogDTO) {
+
         String breed = dogDTO.getBreed();
         String img_url = dogDTO.getImg_url();
 
@@ -106,12 +107,12 @@ public class DogAPIController {
         dog.setBreed(breed);
         dog.setImg_url(img_url);
 
-        dogService.updateDog(dog);
+        dogService.updateDog(id, dog);
         return "Dog updated successfully";
     }
 
-    @PostMapping("/deleteDog")
-    public String deleteDog(Long id) {
+    @DeleteMapping("/deleteDog/{id}")
+    public String deleteDog(@PathVariable Long id) {
         dogService.deleteDog(id);
         return "Dog deleted successfully";
     }

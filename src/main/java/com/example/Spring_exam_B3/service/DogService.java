@@ -6,6 +6,8 @@ import org.hibernate.internal.build.AllowNonPortable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DogService {
 
@@ -29,8 +31,17 @@ public class DogService {
         dogRepository.deleteById(id);
     }
 
-    public void updateDog(Dog dog) {
-        dogRepository.save(dog);
+    public boolean updateDog(Long id, Dog updatedDog) {
+        Optional<Dog> optionalDog = dogRepository.findById(id);
+
+        if (optionalDog.isPresent()) {
+            Dog existingDog = optionalDog.get();
+            existingDog.setBreed(updatedDog.getBreed());
+            existingDog.setImg_url(updatedDog.getImg_url());
+            dogRepository.save(existingDog);
+            return true;
+        }
+        return false;
     }
 
     public boolean existsByBreed(String breed) {
