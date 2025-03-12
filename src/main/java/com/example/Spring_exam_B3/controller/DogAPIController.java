@@ -52,22 +52,20 @@ public class DogAPIController {
             return "Erreur lors de la récupération des races";
         }
 
-        // Récupération des données sous forme de Map<String, List<String>>
         Map<String, List<String>> breeds = (Map<String, List<String>>) response.getBody().get("message");
 
-        // Affichage des races dans la console
         breeds.forEach((key, value) -> {
             if (value.size() > 0) {
                 value.forEach(subBreed -> {
                     String breedName = key + " " + subBreed;
-                    if (!dogService.existsByBreed(breedName)) { // Vérifie si la race existe
+                    if (!dogService.existsByBreed(breedName)) {
                         Dog dog = new Dog();
                         dog.setBreed(breedName);
                         dogService.createDog(dog);
                     }
                 });
             } else {
-                if (!dogService.existsByBreed(key)) { // Vérifie si la race existe
+                if (!dogService.existsByBreed(key)) {
                     Dog dog = new Dog();
                     dog.setBreed(key);
                     dogService.createDog(dog);
