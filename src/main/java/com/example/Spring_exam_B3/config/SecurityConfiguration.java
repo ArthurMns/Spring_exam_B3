@@ -71,9 +71,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable()) // Désactivation de CSRF, nécésaire pour JWT
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Application de la config CORS
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/dog/**").hasRole("API_CALL") // Accès admin
-                        .requestMatchers("/api/scrape/**").hasRole("SCRAPER") // Accès étudiant
-                        .requestMatchers("/api/breed/**").hasRole("CRUD") // Accès enseignant
+                        .requestMatchers("/api/dogs/apicall/**").hasRole("API_CALL") // Accès admin
+                        .requestMatchers("/api/dogs/scrapDog**").hasRole("SCRAPER") // Accès étudiant
+                        .requestMatchers("/api/dogs/crud/**").hasRole("CRUD") // Accès enseignant
                         // Accès public a certaines routes, notamment la page d'accueil, l'inscription et le login
                         .requestMatchers("/", "/index", "/test", "/test/*", "/api/users/register", "/api/login").permitAll()
                         .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification

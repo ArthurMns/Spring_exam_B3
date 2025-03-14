@@ -1,7 +1,7 @@
 INSERT INTO users (username, password, enabled) VALUES
-('admin1', '$2a$10$yJrK77Tkvibxcx2SvL5HFOqUbRbGG14SMJcL8jpCHCqafmGavFghi', true),
-('student1', '$2a$10$yJrK77Tkvibxcx2SvL5HFOqUbRbGG14SMJcL8jpCHCqafmGavFghi',  true),
-('teacher1', '$2a$10$yJrK77Tkvibxcx2SvL5HFOqUbRbGG14SMJcL8jpCHCqafmGavFghi', true);
+('api_call', '$2a$10$2vYaxcOyMq/H9JAZ643pQecTk80NebqK.c0EGidrYzRF8whd6ovca', true),
+('scrap', '$2a$10$2vYaxcOyMq/H9JAZ643pQecTk80NebqK.c0EGidrYzRF8whd6ovca',  true),
+('crud', '$2a$10$2vYaxcOyMq/H9JAZ643pQecTk80NebqK.c0EGidrYzRF8whd6ovca', true);
 
 
 INSERT INTO users_roles (users_id, roles_id) VALUES
@@ -9,4 +9,3 @@ INSERT INTO users_roles (users_id, roles_id) VALUES
 (2, 2),
 (3, 3)
 ;
-

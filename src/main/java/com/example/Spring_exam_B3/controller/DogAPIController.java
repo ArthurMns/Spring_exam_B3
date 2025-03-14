@@ -4,6 +4,7 @@ import com.example.Spring_exam_B3.dto.DogDTO;
 import com.example.Spring_exam_B3.entity.Dog;
 import com.example.Spring_exam_B3.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,8 @@ public class DogAPIController {
         return "This is ok, you can get in";
     }
 
-    @GetMapping("/getAllBreeds")
+    @PreAuthorize("hasRole('API_CALL')")
+    @GetMapping("/apicall/getAllBreeds")
     public Map<String, Object> getAllBreeds() {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.getForEntity("https://dog.ceo/api/breeds/list/all", Map.class);
@@ -31,7 +33,8 @@ public class DogAPIController {
         return response.getBody();
     }
 
-    @GetMapping("/getRandomBreed")
+    @PreAuthorize("hasRole('API_CALL')")
+    @GetMapping("/apicall/getRandomBreed")
     public String getRandomBreed() {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Map> response = restTemplate.getForEntity("https://dog.ceo/api/breed/mix/images/random", Map.class);
@@ -43,6 +46,7 @@ public class DogAPIController {
         return "Erreur : impossible de récupérer l'image";
     }
 
+    @PreAuthorize("hasRole('SCRAPER')")
     @GetMapping("/scrapDog")
     public String scrapDog() {
         RestTemplate restTemplate = new RestTemplate();
@@ -76,7 +80,8 @@ public class DogAPIController {
         return breeds.toString();
     }
 
-    @PostMapping("/createDog")
+    @PreAuthorize("hasRole('CRUD')")
+    @PostMapping("/crud/createDog")
     public String createDog(@RequestBody DogDTO dogDTO) {
 
         String breed = dogDTO.getBreed();
@@ -90,12 +95,14 @@ public class DogAPIController {
         return "Dog created successfully";
     }
 
-    @GetMapping("/getDogById/{id}")
+    @PreAuthorize("hasRole('CRUD')")
+    @GetMapping("/crud/getDogById/{id}")
     public Dog getDogById(@PathVariable Long id) {
         return dogService.getDogById(id);
     }
 
-    @PutMapping("/updateDog/{id}")
+    @PreAuthorize("hasRole('CRUD')")
+    @PutMapping("/crud/updateDog/{id}")
     public String updateDog(@PathVariable Long id, @RequestBody DogDTO dogDTO) {
 
         String breed = dogDTO.getBreed();
@@ -109,12 +116,11 @@ public class DogAPIController {
         return "Dog updated successfully";
     }
 
-    @DeleteMapping("/deleteDog/{id}")
+    @PreAuthorize("hasRole('CRUD')")
+    @DeleteMapping("/crud/deleteDog/{id}")
     public String deleteDog(@PathVariable Long id) {
         dogService.deleteDog(id);
         return "Dog deleted successfully";
     }
-
-
 
 }

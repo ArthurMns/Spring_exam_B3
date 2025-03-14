@@ -1,5 +1,5 @@
 INSERT INTO roles (name) VALUES
-                             ('ROLE_ADMIN'),
-                             ('ROLE_USER'),
-                             ('ROLE_TESTER')
+                             ('ROLE_API_CALL'),
+                             ('ROLE_SCRAPER'),
+                             ('ROLE_CRUD')
 ;
