@@ -34,19 +34,14 @@ public class UserService {
     }
 
     @Transactional
-    public User registerNewUserAccount(User user) {
-        // Hacher le mot de passe avant de l'enregistrer
+    public void registerNewUserAccount(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        // Récupérer le rôle par défaut "ROLE_API_CALL" depuis la base
         Role defaultRole = roleRepository.findByName("ROLE_API_CALL")
                 .orElseThrow(() -> new RuntimeException("Role not found: ROLE_API_CALL"));
 
-        // Assigner ce rôle à l'utilisateur
         user.setRoles(Collections.singletonList(defaultRole));
-
-        // Sauvegarde de l'utilisateur
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public User getUserByToken(String token) {
