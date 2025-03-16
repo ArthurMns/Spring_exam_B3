@@ -23,6 +23,10 @@ public class DogService {
         return dog;
     }
 
+    public Iterable<Dog> getAllDogs() {
+        return dogRepository.findAll();
+    }
+
     public void createDog(Dog dog) {
         dogRepository.save(dog);
     }

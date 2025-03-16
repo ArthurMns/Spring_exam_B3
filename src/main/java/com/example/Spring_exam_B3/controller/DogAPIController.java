@@ -19,6 +19,7 @@ public class DogAPIController {
     @Autowired
     DogService dogService;
 
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping("/test")
     public String test() {
         return "This is ok, you can get in";
@@ -99,6 +100,12 @@ public class DogAPIController {
     @GetMapping("/crud/getDogById/{id}")
     public Dog getDogById(@PathVariable Long id) {
         return dogService.getDogById(id);
+    }
+
+    @PreAuthorize("hasRole('CRUD')")
+    @GetMapping("/crud/getAllDogs")
+    public Iterable<Dog> getAllDogs() {
+        return dogService.getAllDogs();
     }
 
     @PreAuthorize("hasRole('CRUD')")
